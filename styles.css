@@ -596,6 +596,20 @@ body {
   transform: translateX(4px);
 }
 
+.mission-item.dragging {
+  opacity: 0.4;
+  border: 1px dashed var(--neon-pink);
+  box-shadow: 0 0 15px var(--neon-pink-glow);
+  transform: scale(0.98);
+  cursor: grabbing;
+}
+
+.mission-item.drag-over {
+  border: 1px dashed var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan-glow);
+  background: rgba(0, 240, 255, 0.05);
+}
+
 /* Indicator strip for high priority */
 .mission-item::before {
   content: '';

@@ -13,6 +13,8 @@ const state = {
 // LocalStorage Database Key
 const STORAGE_KEY = 'vice-tasks-db';
 
+let draggedIndex = null;
+
 // DOM Element references
 const calendarDaysGrid = document.getElementById('calendar-days-grid');
 const currentMonthYearLabel = document.getElementById('current-month-year');
@@ -272,6 +274,59 @@ function renderChecklist() {
     taskItem.classList.add('mission-item');
     if (task.completed) taskItem.classList.add('completed');
     if (task.priority === 'high') taskItem.classList.add('priority-high');
+    
+    // Drag and Drop support
+    taskItem.setAttribute('draggable', 'true');
+    taskItem.setAttribute('data-index', index);
+    
+    taskItem.addEventListener('dragstart', (e) => {
+      draggedIndex = index;
+      setTimeout(() => {
+        taskItem.classList.add('dragging');
+      }, 0);
+    });
+    
+    taskItem.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    });
+    
+    taskItem.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+      const parentItem = e.target.closest('.mission-item');
+      if (parentItem) {
+        parentItem.classList.add('drag-over');
+      }
+    });
+    
+    taskItem.addEventListener('dragleave', (e) => {
+      const parentItem = e.target.closest('.mission-item');
+      if (parentItem) {
+        parentItem.classList.remove('drag-over');
+      }
+    });
+    
+    taskItem.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const parentItem = e.target.closest('.mission-item');
+      if (!parentItem) return;
+      parentItem.classList.remove('drag-over');
+      
+      const targetIndex = parseInt(parentItem.getAttribute('data-index'), 10);
+      if (draggedIndex === null || draggedIndex === targetIndex) return;
+      
+      const selectedStr = getLocalDateString(state.currentDate);
+      const dayTasks = state.tasks[selectedStr] || [];
+      const [draggedTask] = dayTasks.splice(draggedIndex, 1);
+      dayTasks.splice(targetIndex, 0, draggedTask);
+      
+      saveToStorage();
+      renderApp();
+    });
+    
+    taskItem.addEventListener('dragend', () => {
+      taskItem.classList.remove('dragging');
+      draggedIndex = null;
+    });
     
     // Checkbox container
     const checkboxLabel = document.createElement('label');
