@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VICE TASKS - GTA Themed Calendar Checklist</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Manage your daily missions with a stunning GTA 6 / Vice City inspired calendar checklist. Track progress, edit contracts, and achieve Respect + without ever deleting a task.">
+  <meta name="keywords" content="GTA 6, Vice City, checklist, calendar, task manager, neon, synthwave, daily planner">
+  <meta name="author" content="Antigravity">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient background overlay -->
+  <div class="ambient-glow"></div>
+  
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-container">
+        <h1 class="logo-title">VICE <span class="accent-text">TASKS</span></h1>
+        <p class="logo-subtitle">EST. <span id="app-est-year">2026</span> • YOUR DAILY LIFE CHECKLIST</p>
+      </div>
+      
+      <!-- Quick Dashboard Status Panel -->
+      <div class="header-dashboard glass-panel">
+        <div class="dashboard-progress">
+          <svg class="progress-ring" width="60" height="60">
+            <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="6" fill="transparent" r="24" cx="30" cy="30" />
+            <circle class="progress-ring__circle" stroke="url(#cyan-pink-gradient)" stroke-width="6" fill="transparent" r="24" cx="30" cy="30" stroke-dasharray="150.79" stroke-dashoffset="150.79" />
+            <defs>
+              <linearGradient id="cyan-pink-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f0ff" />
+                <stop offset="100%" stop-color="#ff007f" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="progress-percentage" id="progress-percentage-val">0%</div>
+        </div>
+        <div class="dashboard-text">
+          <div class="dashboard-label">DAILY COMPLETION STATUS</div>
+          <div class="dashboard-status-banner" id="dashboard-status-banner">NO ACTIVE CONTRACTS</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Grid Layout -->
+    <main class="app-grid">
+      
+      <!-- Section 1: The Vice Calendar -->
+      <section class="calendar-section glass-panel" aria-label="Vice Calendar">
+        <div class="section-header">
+          <div class="header-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="18" y2="10"></line></svg>
+          </div>
+          <h2>SELECT DATE</h2>
+        </div>
+        
+        <!-- Month Selector Control -->
+        <div class="month-selector">
+          <button id="prev-month-btn" class="nav-btn" aria-label="Previous Month">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <span id="current-month-year" class="month-label">JUNE 2026</span>
+          <button id="next-month-btn" class="nav-btn" aria-label="Next Month">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+        
+        <!-- Days of Week Headers -->
+        <div class="days-of-week">
+          <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
+        </div>
+        
+        <!-- Days Grid -->
+        <div class="calendar-days" id="calendar-days-grid">
+          <!-- Dynamically generated in JS -->
+        </div>
+      </section>
+
+      <!-- Section 2: Missions / Daily Checklist -->
+      <section class="checklist-section glass-panel" aria-label="Daily Missions">
+        <div class="checklist-header">
+          <div class="selected-date-info">
+            <h2 id="selected-day-title">MONDAY, JUNE 29</h2>
+            <p class="mission-brief-sub">CURRENT CONTRACT LIST</p>
+          </div>
+          <div class="stats-counter" id="stats-counter-badge">
+            <span class="count-completed" id="completed-count">0</span> / <span class="count-total" id="total-count">0</span> COMPLETED
+          </div>
+        </div>
+        
+        <!-- The Mission List -->
+        <div class="mission-list" id="mission-list-container">
+          <!-- Dynamically generated in JS -->
+          <div class="empty-state">
+            <div class="empty-icon">🌴</div>
+            <p class="empty-title">NO ACTIVE CONTRACTS</p>
+            <p class="empty-desc">Establish a new contract for this day below.</p>
+          </div>
+        </div>
+        
+        <!-- Add Task Form -->
+        <div class="add-mission-container">
+          <form id="add-mission-form" class="add-mission-form">
+            <div class="input-row">
+              <input type="text" id="new-mission-input" class="mission-input" placeholder="ENTER NEW MISSION BRIEF..." required autocomplete="off">
+              
+              <!-- Custom Select for Priority / Star level -->
+              <div class="priority-selector">
+                <select id="new-mission-priority" class="priority-select" aria-label="Mission Threat Level">
+                  <option value="normal">NORMAL BRIEF</option>
+                  <option value="high">WANTED (HIGH PRIORITY)</option>
+                </select>
+              </div>
+              
+              <button type="submit" class="submit-btn neon-btn">
+                <span>ACCEPT MISSION</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+      
+    </main>
+
+    <!-- App Footer / Credits -->
+    <footer class="app-footer">
+      <p>VICE CHECKLIST © <span id="app-footer-year">2026</span></p>
+      <p class="footer-hint">💡 Double-click or click the edit icon to modify, or click the delete icon to cancel a contract.</p>
+    </footer>
+  </div>
+
+  <!-- Notification Banner for GTA Style messages (e.g. MISSION PASSED) -->
+  <div class="gta-overlay-message" id="gta-overlay-message">
+    <div class="gta-message-content">
+      <h2 class="gta-msg-title" id="gta-msg-title">MISSION PASSED</h2>
+      <p class="gta-msg-subtitle" id="gta-msg-subtitle">RESPECT +</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

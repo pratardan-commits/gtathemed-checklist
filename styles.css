@@ -1,0 +1,1169 @@
+/* ==========================================
+   GTA 6 / VICE CITY DESIGN SYSTEM & TOKENS
+   ========================================== */
+
+:root {
+  /* Color Palette */
+  --bg-color: #0b0615;
+  --bg-darker: #05030a;
+  --glass-bg: rgba(18, 9, 32, 0.7);
+  --glass-bg-hover: rgba(26, 13, 46, 0.85);
+  --glass-border: rgba(255, 0, 127, 0.15);
+  --glass-border-focus: rgba(0, 240, 255, 0.5);
+  
+  --neon-pink: #ff007f;
+  --neon-pink-glow: rgba(255, 0, 127, 0.4);
+  --neon-cyan: #00f0ff;
+  --neon-cyan-glow: rgba(0, 240, 255, 0.4);
+  --neon-orange: #ff5500;
+  --neon-orange-glow: rgba(255, 85, 0, 0.4);
+  --neon-yellow: #ffcc00;
+  --neon-yellow-glow: rgba(255, 204, 0, 0.4);
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a097b8;
+  --text-muted: #5e5473;
+  --text-teal: #00f0ff;
+  --text-pink: #ff007f;
+  
+  /* Fonts */
+  --font-header: 'Bebas Neue', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+
+  /* Shadows */
+  --neon-shadow-pink: 0 0 10px var(--neon-pink-glow), 0 0 20px rgba(255, 0, 127, 0.2);
+  --neon-shadow-cyan: 0 0 10px var(--neon-cyan-glow), 0 0 20px rgba(0, 240, 255, 0.2);
+  --neon-shadow-orange: 0 0 10px var(--neon-orange-glow), 0 0 20px rgba(255, 85, 0, 0.2);
+  --panel-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================
+   RESET & BASE STYLES
+   ========================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  background-image: 
+    linear-gradient(180deg, rgba(11, 6, 21, 0.85) 0%, rgba(5, 3, 10, 0.95) 100%),
+    url('gta_background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+
+/* Ambient glow spots for background vibe */
+.ambient-glow {
+  position: fixed;
+  top: -10%;
+  left: 10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(255, 0, 127, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ambient-glow::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  right: -50%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-pink);
+  border-radius: 4px;
+  box-shadow: 0 0 5px var(--neon-pink);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 5px var(--neon-cyan);
+}
+
+/* ==========================================
+   LAYOUT STRUCTURE
+   ========================================== */
+
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  min-height: 90vh;
+  margin: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  z-index: 2;
+}
+
+/* ==========================================
+   GLASS PANELS & SHADOWS
+   ========================================== */
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--panel-shadow);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+}
+
+/* ==========================================
+   HEADER COMPONENTS
+   ========================================== */
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-family: var(--font-header);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 3px 3px 0px var(--neon-pink);
+  letter-spacing: 3px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-title .accent-text {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.3), 3px 3px 0px var(--neon-pink);
+}
+
+
+.logo-subtitle {
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+/* Header Dashboard Panel */
+.header-dashboard {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 25px;
+  min-width: 280px;
+}
+
+.header-dashboard::before {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+}
+
+.dashboard-progress {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.35s;
+  transform-origin: 50% 50%;
+  filter: drop-shadow(0 0 3px var(--neon-cyan-glow));
+}
+
+.progress-percentage {
+  position: absolute;
+  font-family: var(--font-header);
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan-glow);
+}
+
+.dashboard-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dashboard-label {
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.dashboard-status-banner {
+  font-family: var(--font-header);
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink-glow);
+  animation: pulse 2s infinite alternate;
+}
+
+/* ==========================================
+   MAIN APP GRID
+   ========================================== */
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-family: var(--font-header);
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+}
+
+.header-icon {
+  color: var(--neon-pink);
+  filter: drop-shadow(0 0 5px var(--neon-pink-glow));
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================
+   CALENDAR VIEW (LEFT PANEL)
+   ========================================== */
+
+.calendar-section {
+  padding: 24px;
+}
+
+.month-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-label {
+  font-family: var(--font-header);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  border-radius: 6px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 0, 127, 0.1);
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+  box-shadow: 0 0 10px var(--neon-pink-glow);
+  transform: translateY(-2px);
+}
+
+.nav-btn:active {
+  transform: translateY(0);
+}
+
+/* Days of Week */
+.days-of-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 8px;
+}
+
+.days-of-week div {
+  padding: 5px 0;
+}
+
+/* Days Grid */
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  cursor: pointer;
+  position: relative;
+  min-height: 52px;
+}
+
+.calendar-day:hover {
+  background: var(--glass-bg-hover);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+.day-number {
+  font-family: var(--font-header);
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.day-indicators {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  align-items: center;
+  height: 6px;
+  width: 100%;
+}
+
+.dot-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neon-pink);
+  box-shadow: 0 0 5px var(--neon-pink);
+}
+
+.dot-indicator.completed {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 5px var(--neon-cyan);
+}
+
+/* State: Other Month Day */
+.calendar-day.other-month {
+  opacity: 0.25;
+}
+
+/* State: Selected Day */
+.calendar-day.selected-day {
+  background: rgba(255, 0, 127, 0.12);
+  border: 2px solid var(--neon-pink);
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.35);
+}
+
+.calendar-day.selected-day::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid var(--neon-pink);
+  border-radius: 8px;
+  animation: pulse-border 1.5s infinite alternate;
+  pointer-events: none;
+}
+
+.calendar-day.selected-day .day-number {
+  color: var(--neon-pink);
+  text-shadow: 0 0 5px var(--neon-pink-glow);
+}
+
+/* State: Completed Tasks Day */
+.calendar-day.all-completed {
+  border-color: var(--neon-cyan);
+  background: rgba(0, 240, 255, 0.05);
+}
+
+.calendar-day.all-completed.selected-day {
+  border-color: var(--neon-pink);
+  background: rgba(255, 0, 127, 0.12);
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.35);
+}
+
+.calendar-day.today {
+  position: relative;
+}
+
+.calendar-day.today::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--neon-orange);
+  box-shadow: 0 0 5px var(--neon-orange);
+}
+
+/* ==========================================
+   CHECKLIST VIEW (RIGHT PANEL)
+   ========================================== */
+
+.checklist-section {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.checklist-section::before {
+  background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+}
+
+.checklist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#selected-day-title {
+  font-family: var(--font-header);
+  font-size: 2rem;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+  text-shadow: 0 0 5px rgba(255,255,255,0.1);
+}
+
+.mission-brief-sub {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: var(--neon-pink);
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.stats-counter {
+  font-family: var(--font-header);
+  font-size: 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 14px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.count-completed {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 5px var(--neon-cyan-glow);
+}
+
+.count-total {
+  color: var(--text-secondary);
+}
+
+/* Mission List Container */
+.mission-list {
+  flex-grow: 1;
+  min-height: 250px;
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 5px;
+}
+
+/* Empty State styling */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: var(--text-secondary);
+  text-align: center;
+  gap: 8px;
+  padding: 40px 0;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-title {
+  font-family: var(--font-header);
+  font-size: 1.6rem;
+  letter-spacing: 1.5px;
+  color: var(--text-primary);
+}
+
+.empty-desc {
+  font-size: 0.85rem;
+  max-width: 250px;
+}
+
+/* Mission Item Card */
+.mission-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 14px 18px;
+  gap: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateX(4px);
+}
+
+/* Indicator strip for high priority */
+.mission-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--text-secondary);
+}
+
+/* Custom Checkbox Design */
+.mission-checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.mission-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  height: 22px;
+  width: 22px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkmark svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--neon-cyan);
+  stroke-width: 4;
+  fill: none;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 0.2s ease;
+}
+
+.mission-checkbox-container:hover input ~ .checkmark {
+  border-color: var(--neon-pink);
+  background-color: rgba(255, 0, 127, 0.05);
+  box-shadow: 0 0 5px var(--neon-pink-glow);
+}
+
+.mission-checkbox-container input:checked ~ .checkmark {
+  background-color: rgba(0, 240, 255, 0.1);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan-glow);
+}
+
+.mission-checkbox-container input:checked ~ .checkmark svg {
+  stroke-dashoffset: 0;
+}
+
+/* Mission Item Content & States */
+.mission-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mission-text-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.mission-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  word-break: break-word;
+  line-height: 1.4;
+  cursor: pointer;
+  width: 100%;
+}
+
+.mission-meta-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.priority-tag {
+  font-family: var(--font-header);
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* High Priority (WANTED) */
+.mission-item.priority-high {
+  border-color: rgba(255, 85, 0, 0.3);
+}
+
+.mission-item.priority-high::before {
+  background: var(--neon-orange);
+  box-shadow: 0 0 8px var(--neon-orange-glow);
+}
+
+.mission-item.priority-high .priority-tag {
+  background: rgba(255, 85, 0, 0.15);
+  color: var(--neon-orange);
+  border-color: var(--neon-orange);
+  box-shadow: 0 0 4px rgba(255, 85, 0, 0.2);
+}
+
+/* Finished / Checked state */
+.mission-item.completed {
+  border-color: rgba(0, 240, 255, 0.2);
+  background: rgba(0, 240, 255, 0.02);
+}
+
+.mission-item.completed::before {
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan-glow);
+}
+
+.mission-item.completed .mission-text {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+  text-decoration-color: rgba(0, 240, 255, 0.4);
+  opacity: 0.7;
+}
+
+/* Edit Form inside task card */
+.edit-mission-form {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+  margin: 2px 0;
+}
+
+.edit-input {
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--neon-pink);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 6px 10px;
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 0, 127, 0.2);
+}
+
+.edit-input:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.edit-save-btn, .edit-cancel-btn {
+  border: 0;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+}
+
+.edit-save-btn {
+  background: rgba(0, 240, 255, 0.2);
+  border: 1px solid var(--neon-cyan);
+}
+
+.edit-save-btn:hover {
+  background: var(--neon-cyan);
+  color: black;
+  box-shadow: 0 0 8px var(--neon-cyan-glow);
+}
+
+.edit-cancel-btn {
+  background: rgba(255, 0, 127, 0.15);
+  border: 1px solid var(--neon-pink);
+}
+
+.edit-cancel-btn:hover {
+  background: var(--neon-pink);
+  color: white;
+  box-shadow: 0 0 8px var(--neon-pink-glow);
+}
+
+/* Edit trigger button in item card */
+.mission-actions-trigger {
+  opacity: 0;
+  display: flex;
+  align-items: center;
+}
+
+.mission-item:hover .mission-actions-trigger {
+  opacity: 1;
+}
+
+.edit-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-btn:hover {
+  color: var(--neon-pink);
+  background: rgba(255, 0, 127, 0.1);
+  box-shadow: 0 0 5px var(--neon-pink-glow);
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.delete-btn:hover {
+  color: var(--neon-orange);
+  background: rgba(255, 85, 0, 0.1);
+  box-shadow: 0 0 5px var(--neon-orange-glow);
+}
+
+/* ==========================================
+   ADD MISSION FORM
+   ========================================== */
+
+.add-mission-container {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+}
+
+.input-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mission-input {
+  flex-grow: 1;
+  min-width: 200px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 12px 16px;
+  color: white;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.mission-input:focus {
+  border-color: var(--neon-pink);
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.25);
+}
+
+.priority-selector {
+  display: flex;
+  position: relative;
+}
+
+.priority-select {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 0 16px;
+  color: var(--text-secondary);
+  font-family: var(--font-header);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  outline: none;
+  cursor: pointer;
+  min-width: 170px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.priority-select:focus {
+  border-color: var(--neon-pink);
+  color: white;
+}
+
+/* Arrow indicator for custom select */
+.priority-selector::after {
+  content: '▼';
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.neon-btn {
+  background: linear-gradient(135deg, var(--neon-pink), var(--neon-orange));
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-family: var(--font-header);
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+}
+
+.neon-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.neon-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.neon-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.neon-btn:hover::before {
+  opacity: 1;
+}
+
+.neon-btn:active {
+  transform: translateY(0);
+}
+
+/* ==========================================
+   GTA MISSION PASSED OVERLAY
+   ========================================== */
+
+.gta-overlay-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.gta-overlay-message.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.gta-message-content {
+  text-align: center;
+  transform: scale(0.6);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gta-overlay-message.show .gta-message-content {
+  transform: scale(1);
+}
+
+.gta-msg-title {
+  font-family: var(--font-header);
+  font-size: 6rem;
+  font-weight: bold;
+  letter-spacing: 5px;
+  color: #ffb700;
+  text-shadow: 0 0 20px rgba(255, 183, 0, 0.6);
+  line-height: 1;
+  margin-bottom: 10px;
+  animation: shine 2s infinite alternate;
+}
+
+.gta-msg-subtitle {
+  font-family: var(--font-header);
+  font-size: 2.2rem;
+  letter-spacing: 6px;
+  color: #00f0ff;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+  text-transform: uppercase;
+}
+
+/* ==========================================
+   FOOTER STYLING
+   ========================================== */
+
+.app-footer {
+  text-align: center;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--text-muted);
+}
+
+.app-footer p {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+}
+
+.footer-hint {
+  color: var(--text-secondary);
+}
+
+/* ==========================================
+   ANIMATIONS & MEDIA QUERIES
+   ========================================== */
+
+@keyframes pulse {
+  0% {
+    opacity: 0.8;
+    text-shadow: 0 0 5px var(--neon-pink-glow);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 12px var(--neon-pink-glow), 0 0 2px var(--neon-pink);
+  }
+}
+
+@keyframes pulse-border {
+  0% {
+    opacity: 0.4;
+    box-shadow: 0 0 5px rgba(255, 0, 127, 0.2);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes shine {
+  from {
+    filter: brightness(1);
+  }
+  to {
+    filter: brightness(1.2);
+  }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 900px) {
+  .app-container {
+    margin: 20px 10px;
+    gap: 20px;
+  }
+  
+  .logo-title {
+    font-size: 2.8rem;
+  }
+  
+  .app-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .header-dashboard {
+    min-width: unset;
+  }
+  
+  .gta-msg-title {
+    font-size: 4rem;
+  }
+  
+  .gta-msg-subtitle {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .logo-title {
+    font-size: 2.3rem;
+  }
+  
+  .logo-subtitle {
+    letter-spacing: 2px;
+  }
+  
+  .calendar-section, .checklist-section {
+    padding: 16px;
+  }
+  
+  .month-label {
+    font-size: 1.4rem;
+  }
+  
+  .calendar-day {
+    min-height: 44px;
+    padding: 4px;
+  }
+  
+  .day-number {
+    font-size: 1rem;
+  }
+  
+  .input-row {
+    flex-direction: column;
+  }
+  
+  .priority-select {
+    width: 100%;
+  }
+  
+  .neon-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
