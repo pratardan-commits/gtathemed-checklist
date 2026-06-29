@@ -19,6 +19,8 @@
   --neon-orange-glow: rgba(255, 85, 0, 0.4);
   --neon-yellow: #ffcc00;
   --neon-yellow-glow: rgba(255, 204, 0, 0.4);
+  --neon-red: #ff003c;
+  --neon-red-glow: rgba(255, 0, 60, 0.4);
   
   --text-primary: #ffffff;
   --text-secondary: #a097b8;

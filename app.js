@@ -535,9 +535,22 @@ function updateProgressStats() {
     dashboardStatusBanner.style.color = 'var(--neon-cyan)';
     dashboardStatusBanner.style.textShadow = '0 0 10px var(--neon-cyan-glow)';
   } else {
-    dashboardStatusBanner.textContent = 'MISSION IN PROGRESS';
-    dashboardStatusBanner.style.color = 'var(--neon-pink)';
-    dashboardStatusBanner.style.textShadow = '0 0 10px var(--neon-pink-glow)';
+    // Check if the selected date is in the past relative to today
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const selected = new Date(state.currentDate);
+    selected.setHours(0, 0, 0, 0);
+    const isPastDay = selected < today;
+
+    if (isPastDay) {
+      dashboardStatusBanner.textContent = 'MISSION FAILED';
+      dashboardStatusBanner.style.color = 'var(--neon-red)';
+      dashboardStatusBanner.style.textShadow = '0 0 10px var(--neon-red-glow)';
+    } else {
+      dashboardStatusBanner.textContent = 'MISSION IN PROGRESS';
+      dashboardStatusBanner.style.color = 'var(--neon-pink)';
+      dashboardStatusBanner.style.textShadow = '0 0 10px var(--neon-pink-glow)';
+    }
   }
 }
 
